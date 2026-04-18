@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League Stats Profile</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<div class="container">
+    
+    <div class="header-row">
+        
+        <div class="header-section player-info">
+            <div class="avatar-container">
+                <img src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/652.png" alt="Avatar" class="avatar">
+                <span class="level-tag">652</span>
+            </div>
+            <div class="name-controls">
+                <div class="nick-line">
+                    <h1 class="nickname">Гори ярче звёзд</h1>
+                    <span class="tagline">#999</span>
+                    <span class="region-badge">RU</span>
+                </div>
+                <button class="status-btn"><span class="dot"></span> Up to date</button>
+            </div>
+        </div>
+
+        <div class="header-section ranks-container">
+            <div class="rank-card solo">
+                <div class="rank-header">
+                    <i class="fas fa-medal rank-medal-icon"></i>
+                    <span>Ranked Solo</span>
+                </div>
+                <div class="rank-body">
+                    <div class="rank-icon-placeholder">💠</div> <div class="rank-details">
+                        <div class="tier">MASTER 174 LP</div>
+                        <div class="winrate">86W - 91L (49%)</div>
+                        <div class="ladder">LADDER RANK <span class="white">628th</span> (0.43%)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="rank-card flex-rank">
+                <div class="rank-header">
+                    <i class="fas fa-trophy flex-trophy-icon"></i>
+                    <span>Ranked Flex</span>
+                    <span class="flex-rank-shorthand">III - 55 LP <i class="fas fa-chevron-down"></i></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-section summary-card">
+            <div class="summary-header">
+                <i class="fas fa-chart-line"></i>
+                Last 30 games performance
+            </div>
+            <div class="summary-body">
+                <div class="winrate-stat">
+                    <div class="chart-circle">
+                        <span class="wr-pct">33%</span>
+                        <span class="wr-label">Winrate</span>
+                    </div>
+                    <div class="record">10W - 20L</div>
+                </div>
+                <div class="kda-stat">
+                    <div class="kda-main">
+                        <div class="kda-val">2.1</div>
+                        <div class="kda-lbl">KDA</div>
+                    </div>
+                    <div class="kda-split">6.8 / 6.0 / 5.8</div>
+                </div>
+                <div class="avg-rank-stat">
+                    <div class="rank-lbl">Average rank</div>
+                    <div class="rank-val">5.1<span>/10</span></div>
+                    <div class="awards">
+                        <span><span class="yellow">MVP</span> x4</span>
+                        <span><span class="purple">ACE</span> x8</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <div class="match-list">
+        
+        <div class="match-item lose">
+            <div class="col col-meta">
+                <div class="meta-line white">34:28 <span class="grey">1d ago</span></div>
+                <div class="meta-line white bold">Solo/Duo</div>
+                <div class="lp-loss">- ? LP <i class="far fa-question-circle"></i></div>
+            </div>
+            <div class="col col-champ">
+                <div class="main-champ-wrapper">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/Lillia.png" class="main-champ-img">
+                    <div class="role-icon-box">🍃</div>
+                </div>
+                <div class="summoners-runes">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/SummonerFlash.png" class="small-icon">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/SummonerHaste.png" class="small-icon">
+                </div>
+                <div class="summoners-runes runes">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png" class="small-icon rune">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/Waterwalking/Waterwalking.png" class="small-icon rune">
+                </div>
+            </div>
+            <div class="col col-kda">
+                <div class="kda-stats"><span class="white">11</span> / <span class="red">9</span> / <span class="white">11</span></div>
+                <div class="team-badge avg">Avg team</div>
+            </div>
+            <div class="col col-stats">
+                <div class="blue bold">2.4 KDA</div>
+                <div class="grey">5.1 CS/m</div>
+                <div class="grey">54% KP</div>
+            </div>
+            <div class="col col-vs">
+                <div class="vs-champ-wrapper">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/Talon.png" class="enemy-champ-img">
+                </div>
+                <div class="vs-tag">VS</div>
+            </div>
+            <div class="col col-score">
+                <div class="score-circle-outer orange">
+                    <div class="score-circle-inner">
+                        <div class="score-num orange">46</div>
+                        <div class="score-pos grey">7th</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-expand">
+                <i class="fas fa-chevron-down expand-icon"></i>
+            </div>
+        </div>
+
+        <div class="match-item win mvp">
+            <div class="col col-meta">
+                <div class="meta-line white">35:34 <span class="grey">1d ago</span></div>
+                <div class="meta-line white bold">Solo/Duo</div>
+            </div>
+            <div class="col col-champ">
+                <div class="main-champ-wrapper">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/Zeri.png" class="main-champ-img">
+                    <div class="role-icon-box">🏹</div>
+                </div>
+                <div class="summoners-runes">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/SummonerFlash.png" class="small-icon">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/SummonerExhaust.png" class="small-icon">
+                </div>
+                <div class="summoners-runes runes">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png" class="small-icon rune">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/GatheringStorm/GatheringStorm.png" class="small-icon rune">
+                </div>
+            </div>
+            <div class="col col-kda">
+                <div class="kda-stats"><span class="white">11</span> / <span class="red">5</span> / <span class="white">10</span></div>
+                <div class="team-badge good">Good team</div>
+            </div>
+            <div class="col col-stats">
+                <div class="purple bold">4.2 KDA</div>
+                <div class="grey">9.2 CS/m</div>
+                <div class="grey">57% KP</div>
+            </div>
+            <div class="col col-vs">
+                <div class="vs-champ-wrapper">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/Lucian.png" class="enemy-champ-img">
+                </div>
+                <div class="vs-tag">VS</div>
+            </div>
+            <div class="col col-score">
+                <div class="score-circle-outer mvp">
+                    <div class="score-circle-inner">
+                        <div class="score-num mvp-text">84</div>
+                        <div class="score-pos grey">ACE</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-expand">
+                <i class="fas fa-chevron-down expand-icon"></i>
+            </div>
+        </div>
+
+        <div class="match-item win blue-bg">
+            <div class="col col-meta">
+                <div class="meta-line white">27:16 <span class="grey">5d ago</span></div>
+                <div class="meta-line white bold">Solo/Duo</div>
+            </div>
+            <div class="col col-champ">
+                <div class="main-champ-wrapper">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/Orianna.png" class="main-champ-img">
+                    <div class="role-icon-box">🔮</div>
+                </div>
+                <div class="summoners-runes">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/SummonerFlash.png" class="small-icon">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/SummonerDot.png" class="small-icon">
+                </div>
+                <div class="summoners-runes runes">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/PhaseRush/PhaseRush.png" class="small-icon rune">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/Scorch/Scorch.png" class="small-icon rune">
+                </div>
+            </div>
+            <div class="col col-kda">
+                <div class="kda-stats"><span class="white">9</span> / <span class="red">3</span> / <span class="white">8</span></div>
+                <div class="team-badge good">Good team</div>
+            </div>
+            <div class="col col-stats">
+                <div class="yellow bold">5.7 KDA</div>
+                <div class="grey">8.5 CS/m</div>
+                <div class="grey">44% KP</div>
+            </div>
+            <div class="col col-vs">
+                <div class="vs-champ-wrapper">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/Zoe.png" class="enemy-champ-img">
+                </div>
+                <div class="vs-tag">VS</div>
+            </div>
+            <div class="col col-score">
+                <div class="score-circle-outer mvp">
+                    <div class="score-circle-inner">
+                        <div class="score-num mvp-text">92</div>
+                        <div class="score-pos grey">2nd</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-expand">
+                <i class="fas fa-chevron-down expand-icon"></i>
+            </div>
+        </div>
+
+    </div> </div> </body>
+</html>

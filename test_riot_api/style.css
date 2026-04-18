@@ -1,0 +1,221 @@
+/* --- Global Reset & Colors --- */
+:root {
+    --bg-main: #0b0c0d; /* Единый темный фон */
+    --card-bg: #16181c;
+    --match-lose-bg: #2a1b1b;
+    --match-lose-border: #e84057;
+    --match-win-bg: #19241b;
+    --match-win-border: #28cc8b;
+    --match-blue-bg: #1e253c; /* Для нижнего матча */
+    
+    --text-white: #ffffff;
+    --text-grey: #9a9eac;
+    --text-red: #e84057;
+    --text-blue: #4a90e2;
+    --text-yellow: #fec14e;
+    --text-purple: #c462ff;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-white);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+/* --- Helpers --- */
+.white { color: var(--text-white); }
+.grey { color: var(--text-grey); }
+.red { color: var(--text-red); }
+.blue { color: var(--text-blue); }
+.yellow { color: var(--text-yellow); }
+.purple { color: var(--text-purple); }
+.bold { font-weight: bold; }
+.orange { color: #fec14e; border-color: #fec14e; }
+.mvp-text { color: #c462ff; border-color: #c462ff; }
+
+/* ==========================================================
+   HEADER ROW (Player, Rank, Summary)
+   ========================================================== */
+.header-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+/* --- Player Info --- */
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 300px;
+}
+
+.avatar-container { position: relative; }
+.avatar { width: 85px; height: 85px; border-radius: 12px; border: 2px solid #333; }
+.level-tag {
+    position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
+    background: #1e2024; color: white; padding: 1px 8px; border-radius: 10px;
+    font-size: 11px; border: 1px solid #3d3f42;
+}
+
+.nick-line { display: flex; align-items: center; gap: 3px; }
+.nickname { margin: 0; font-size: 24px; font-weight: 800; }
+.tagline { color: #80858a; font-size: 20px; font-weight: 400; }
+.region-badge {
+    background: #2b3ef4; color: white; padding: 1px 5px; border-radius: 4px;
+    font-size: 11px; font-weight: bold; margin-left: 5px;
+}
+
+.status-btn {
+    margin-top: 10px; background: #1a1c21; border: 1px solid #3d3f42;
+    color: #28cc8b; padding: 5px 12px; border-radius: 6px; font-size: 12px;
+    cursor: pointer; display: flex; align-items: center; gap: 5px;
+}
+.dot { width: 6px; height: 6px; background: #28cc8b; border-radius: 50%; }
+
+/* --- Ranks Container --- */
+.ranks-container { display: flex; flex-direction: column; gap: 10px; min-width: 250px; }
+
+.rank-card {
+    background: var(--card-bg);
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+.rank-header {
+    font-size: 12px; color: var(--text-grey); display: flex; align-items: center; gap: 6px;
+    margin-bottom: 8px;
+}
+.rank-medal-icon { color: #8e44ad; } /* Master color */
+.flex-trophy-icon { color: #c0392b; }
+
+.rank-body { display: flex; align-items: center; gap: 15px; }
+.rank-icon-placeholder { font-size: 36px; } /* Временно, потом иконку Master */
+.tier { font-size: 16px; font-weight: bold; color: var(--text-purple); }
+.winrate { font-size: 13px; color: var(--text-grey); margin: 2px 0; }
+.ladder { font-size: 11px; color: #555; }
+
+/* Ranked Flex Short style */
+.rank-card.flex-rank .rank-header { margin-bottom: 0; }
+.flex-rank-shorthand { margin-left: auto; color: var(--text-purple); font-weight: bold; display: flex; align-items: center; gap: 5px;}
+
+/* --- Performance Summary --- */
+.summary-card {
+    background: var(--card-bg);
+    padding: 15px 20px;
+    border-radius: 10px;
+    flex-grow: 1; /* Занимает оставшееся место */
+    min-width: 450px;
+}
+
+.summary-header {
+    font-size: 12px; color: var(--text-grey); display: flex; align-items: center; gap: 6px;
+    margin-bottom: 15px;
+}
+
+.summary-body { display: flex; justify-content: space-between; align-items: center; gap: 20px;}
+
+.winrate-stat { text-align: center; }
+.chart-circle {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border: 4px solid var(--text-red); border-left-color: #ccc; border-top-color: #ccc; /* Pie Chart look */
+    width: 65px; height: 65px; border-radius: 50%; margin-bottom: 5px;
+}
+.wr-pct { font-size: 20px; font-weight: bold; }
+.wr-label { font-size: 10px; color: var(--text-grey); }
+.record { font-size: 11px; color: var(--text-grey); }
+
+.kda-main { text-align: center; }
+.kda-val { font-size: 32px; font-weight: 800; color: var(--text-purple); margin: 0;}
+.kda-lbl { font-size: 12px; color: var(--text-grey); }
+.kda-split { font-size: 12px; color: var(--text-grey); margin-top: 2px;}
+
+.avg-rank-stat { text-align: right; }
+.rank-lbl { font-size: 11px; color: var(--text-grey); }
+.rank-val { font-size: 24px; font-weight: bold; margin: 3px 0;}
+.rank-val span { font-size: 14px; color: #555; }
+.awards { font-size: 11px; display: flex; gap: 8px; justify-content: flex-end;}
+
+/* ==========================================================
+   MATCH HISTORY SECTION
+   ========================================================== */
+.match-list { display: flex; flex-direction: column; gap: 8px; }
+
+/* Базовые стили карточки */
+.match-item {
+    display: flex; align-items: center;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 13px;
+    min-height: 70px;
+}
+
+/* Типы матчей (Цвета) */
+.match-item.lose { border-left: 5px solid var(--match-lose-border); background: var(--match-lose-bg); }
+.match-item.win { border-left: 5px solid var(--match-win-border); background: var(--match-win-bg); }
+.match-item.win.blue-bg { background: var(--match-blue-bg); }
+
+/* Колонки */
+.col { display: flex; flex-direction: column; }
+
+/* Колонки: Расположение */
+.col-meta { width: 90px; gap: 3px; }
+.col-champ { width: 140px; flex-direction: row; align-items: center; gap: 8px; position: relative;}
+.col-kda { width: 120px; text-align: center; align-items: center; gap: 5px;}
+.col-stats { width: 90px; gap: 3px; }
+.col-vs { width: 90px; align-items: center; position: relative; }
+.col-score { width: 90px; align-items: center; }
+.col-expand { width: 40px; align-items: center; margin-left: auto; color: #555;}
+
+/* Детали колонок */
+.meta-line { font-size: 12px; }
+.lp-loss { font-size: 11px; color: #8e2133; } /* Темно-красный */
+
+.main-champ-wrapper { position: relative; }
+.main-champ-img { width: 50px; height: 50px; border-radius: 8px; }
+.role-icon-box {
+    position: absolute; bottom: -5px; left: -5px;
+    background: #1a1a1a; padding: 1px 3px; border-radius: 50%; font-size: 10px;
+}
+
+.summoners-runes { display: flex; flex-direction: column; gap: 3px; }
+.small-icon { width: 22px; height: 22px; border-radius: 4px; }
+.small-icon.rune { border-radius: 50%; background: #000; }
+
+.kda-stats { font-size: 17px; font-weight: bold; }
+.team-badge { font-size: 10px; padding: 2px 7px; border-radius: 10px; }
+.team-badge.avg { background: #3d3f42; color: #9a9eac; }
+.team-badge.good { background: rgba(74, 144, 226, 0.2); color: #4a90e2; }
+
+.vs-champ-wrapper { position: relative; margin-top: -10px;}
+.enemy-champ-img { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #333; opacity: 0.8; }
+.vs-tag {
+    position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
+    background: #1a1a1a; color: #9a9eac; padding: 1px 4px; border-radius: 4px; font-size: 9px; font-weight: bold;
+}
+
+/* Круги оценки справа */
+.score-circle-outer {
+    width: 50px; height: 50px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 3px solid transparent; /* Цвет задается через helpers */
+}
+/* Pie chart look for circles */
+.score-circle-outer.orange { border-color: #fec14e; border-left-color: #333; border-top-color: #333;}
+.score-circle-outer.mvp { border-color: #c462ff; border-left-color: #ccc; border-top-color: #ccc;}
+
+.score-circle-inner { text-align: center; }
+.score-num { font-size: 17px; font-weight: bold; }
+.score-pos { font-size: 10px; }
+
+.expand-icon { font-size: 16px; cursor: pointer; }
