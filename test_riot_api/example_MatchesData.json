@@ -1,0 +1,68 @@
+{
+  "gameId": 6784592103,
+  "gameDuration": 1645, 
+  "gameMode": "CLASSIC",
+  "searchPuuid": "iMGRffIqjht8S4bfvUrdpu97icCxDoqGAshE5oplw-0U0udl3OaIYCnJf-Uon9sPbkoR2ygCD8kIHg",
+  
+  "mainPlayerData": {
+    "puuid": "iMGRffIqjht8S4bfvUrdpu97icCxDoqGAshE5oplw-0U0udl3OaIYCnJf-Uon9sPbkoR2ygCD8kIHg",
+    "level": 16,
+    "championName": "Lillia",
+    "name": "MyNickname",
+    "tag": "EUNE",
+    "spells": {
+      "s1": 12,
+      "s2": 4
+    },
+    "runes": {
+      "main": 8010,
+      "subStyle": 8300
+    },
+    "items": [6653, 3157, 3111, 3116, 1056, 0, 3364],
+    "kda": {
+      "k": 8,
+      "d": 4,
+      "a": 12,
+      "kp": 0.54
+    },
+    "cs": {
+      "minions": 42,
+      "jungle": 168,
+      "total": 210
+    },
+    "damage": 24500,
+    "win": true
+  },
+
+  "players": [
+    {
+      "puuid": "puuid_player_1",
+      "level": 18,
+      "championName": "Aatrox",
+      "name": "Teammate1",
+      "tag": "EUW",
+      "spells": { "s1": 12, "s2": 4 },
+      "runes": { "main": 8010, "subStyle": 8400 },
+      "items": [6630, 3071, 3111, 3053, 0, 0, 3340],
+      "kda": { "k": 5, "d": 7, "a": 3, "kp": 0.21 },
+      "cs": { "minions": 180, "jungle": 4, "total": 184 },
+      "damage": 18200,
+      "win": true
+    },
+    {
+      "puuid": "iMGRffIqjht8S4bfvUrdpu97icCxDoqGAshE5oplw...", 
+      "level": 16,
+      "championName": "Lillia",
+      "name": "MyNickname",
+      "tag": "EUNE",
+      "spells": { "s1": 12, "s2": 4 },
+      "runes": { "main": 8010, "subStyle": 8300 },
+      "items": [6653, 3157, 3111, 3116, 1056, 0, 3364],
+      "kda": { "k": 8, "d": 4, "a": 12, "kp": 0.54 },
+      "cs": { "minions": 42, "jungle": 168, "total": 210 },
+      "damage": 24500,
+      "win": true
+    },
+    "... и так далее до 10-го игрока"
+  ]
+}

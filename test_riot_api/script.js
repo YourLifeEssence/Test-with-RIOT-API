@@ -12,7 +12,10 @@ const name_search = document.getElementById("name_search");
 const tag_search = document.getElementById("tag_search");
 const search_btn = document.getElementById("search_btn");
 
+
 const routingValue = 'europe';
+
+
 async function getResponse(url) {
     const response = await fetch(url, {
         method: 'GET',
@@ -30,6 +33,7 @@ async function getResponse(url) {
     return data;
 }
 
+
 async function getRiotAccount(gameName, tagLine) {
     const url = `https://${routingValue}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}`;
     
@@ -38,6 +42,7 @@ async function getRiotAccount(gameName, tagLine) {
     return puuid;
 }
 
+
 async function getRegionAccount(puuid) {
     const url = `https://${routingValue}.api.riotgames.com/riot/account/v1/region/by-game/lol/by-puuid/${puuid}`
 
@@ -45,6 +50,7 @@ async function getRegionAccount(puuid) {
     const { region } = data;
     return region;
 }
+
 
 async function getRankAccount(puuid, region) {
     const url = `https://${region}.api.riotgames.com/lol/league/v4/entries/by-puuid/${puuid}`
@@ -64,6 +70,7 @@ async function getRankAccount(puuid, region) {
     return [myTierSolo, pointSoloQueue, myTierFlex, pointFlexQueue];
 }
 
+
 async function getIconAndLevelAccount(puuid, region) {
     const url = `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}`
 
@@ -72,6 +79,89 @@ async function getIconAndLevelAccount(puuid, region) {
     const levelSummoner = data.summonerLevel;
     return [iconId, levelSummoner];
 }
+
+
+async function getListIdMatches(puuid, count = 20) {
+    const url = `https://${routingValue}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&${count}`;
+
+    const data = await getResponse(url);
+    return data;
+}
+
+
+function parseMatchStats(MatchesData, searchPuuid) {
+    return MatchesData.map(match => {
+        const info = match.info;
+
+        const allPlayers = info.participants.map(p => {
+            return {
+                puuid: p.puuid,
+                level: p.champLevel,
+                championName: p.championName,
+                name: p.riotIdGameName,
+                tag: p.riotIdTagline,
+
+                spells: { s1: p.summoner1Id, s2: p.summoner2Id },
+
+                runes: {
+                    main: p.perks.styles[0].selections[0].perk,
+                    subStyle: p.perks.styles[1].style
+                },
+
+                items: [p.item0, p.item1, p.item2, p.item3, p.item4, p.item5, p.item6],
+
+                kda: {
+                    k: p.kills,
+                    d: p.deaths,
+                    a: p.assists,
+                    kp: p.challenges?.killParticipation || 0
+                },
+
+                cs: {
+                    minions: p.totalMinionsKilled,
+                    jungle: p.neutralMinionsKilled,
+                    total: p.totalMinionsKilled + p.neutralMinionsKilled
+                },
+
+                damage: p.totalDamageDealtToChampions,
+                win: p.win
+            };
+        });
+
+        const mainPlayer = allPlayers.find(p => p.puuid === searchPuuid);
+
+        return {
+            gameId: info.gameId,
+            gameDuration: info.gameDuration,
+            gameMode: info.gameMode,
+            searchPuuid: searchPuuid,
+            mainPlayerData: mainPlayer,
+            players: allPlayers
+        };
+    });
+}
+
+
+async function getInformationFromMatch(puuid, count = 20) {
+    const listMatchIds =  await getListIdMatches(puuid, count);
+
+    if(!Array.isArray(listMatchIds)){
+        console.error("Error : Не удалось получить список ID матчей");
+        return;
+    }
+
+    const MatchesData = [];
+
+    for (const id of listMatchIds) {
+        const url = `https://${routingValue}.api.riotgames.com/lol/match/v5/matches/${id.toUpperCase()}`;
+        const matchData = await getResponse(url);
+        MatchesData.push(matchData);
+    }
+
+    const data = parseMatchStats(MatchesData, puuid);
+    return data;
+}
+
 
 async function main() {
     let gameName = name_search.value;
@@ -89,6 +179,8 @@ async function main() {
     rank_img.src = `https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-emblem/emblem-${rankSolo.toLowerCase()}.png`;
     tier.textContent = rankSolo;
     lp.textContent = pointsSolo;
+
+    getInformationFromMatch(_puuid, 20);
 }
 
 
