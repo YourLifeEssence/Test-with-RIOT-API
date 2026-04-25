@@ -151,3 +151,153 @@ body {
 .search-btn:active {
     transform: scale(0.97);
 }
+
+    .match-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* CARD */
+.match-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: #16181c;
+    padding: 12px 15px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.match-item:hover {
+    background: #1d2127;
+    transition: 0.2s;
+}
+
+.match-item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5px;
+    height: 100%;
+    border-radius: 10px 0 0 10px;
+    background: gray;
+}
+
+
+.match-item.win::before {
+    background: #4caf50;
+}
+
+.match-item.lose::before {
+    background: #e53935;
+}
+
+/* COMMON COLUMN */
+.col {
+    display: flex;
+    flex-direction: column;
+}
+
+/* META */
+.meta {
+    width: 110px;
+    font-size: 12px;
+}
+
+.mode {
+    color: white;
+    font-weight: bold;
+}
+
+.duration {
+    color: #9a9eac;
+}
+
+/* CHAMP */
+.champ-col {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.champ {
+    width: 55px;
+    height: 55px;
+    border-radius: 10px;
+}
+
+/* RUNES */
+.summoner_spells {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.summoner_spells img {
+    width: 20px;
+    height: 20px;
+    background: black;
+}
+
+.runes {
+    position: relative;
+    width: 32px;
+    height: 32px;
+}
+
+.runes img {
+    border-radius: 50%;
+    background: black;
+    position: relative;
+    width: 32px;
+    height: 32px;
+}
+
+#primary_rune {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+#secondary_rune {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    right: -6px;
+    bottom: -4px;
+    border-radius: 50%;
+    border: 2px solid #16181c;
+    background: black;
+    z-index: 2;
+}
+
+/* KDA */
+.kda-col {
+    min-width: 120px;
+}
+
+.score-line {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.kda {
+    font-size: 12px;
+    color: #9a9eac;
+}
+
+/* CS */
+.cs-col {
+    font-size: 13px;
+    min-width: 80px;
+}
+
+.small {
+    color: #9a9eac;
+    font-size: 12px;
+}

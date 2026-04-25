@@ -1,19 +1,83 @@
-const avatar = document.getElementById("avatar");
+const avatar         = document.getElementById("avatar");
 const summoner_level = document.getElementById("summoner_level");
-const nickname = document.getElementById("nickname");
-const tagline = document.getElementById("tagline");
-const regionHtml = document.getElementById("region");
+const nickname       = document.getElementById("nickname");
+const tagline        = document.getElementById("tagline");
+const regionHtml     = document.getElementById("region");
 
-const rank_img = document.getElementById("rank_img");
-const tier = document.getElementById("tier");
-const lp = document.getElementById("lp");
+const rank_img       = document.getElementById("rank_img");
+const tier           = document.getElementById("tier");
+const lp             = document.getElementById("lp");
 
-const name_search = document.getElementById("name_search");
-const tag_search = document.getElementById("tag_search");
-const search_btn = document.getElementById("search_btn");
+const name_search    = document.getElementById("name_search");
+const tag_search     = document.getElementById("tag_search");
+const search_btn     = document.getElementById("search_btn");
 
+const match_list = document.getElementById("match-list");
 
 const routingValue = 'europe';
+
+const rankColors = {
+    "UNRANKED": "#474747",
+    "IRON": "#514A4A",
+    "BRONZE": "#8C5A2B",
+    "SILVER": "#C0C0C0",
+    "GOLD": "#FFD700",
+    "PLATINUM": "#00A8A8",
+    "EMERALD": "#00C957",
+    "DIAMOND": "#4FC3F7",
+    "MASTER": "#9C27B0",
+    "GRANDMASTER": "#C62828",
+    "CHALLENGER": "#1E88E5"
+}
+
+const summonerSpells = {
+    1:  "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/spell/SummonerBoost.png",
+    3:  "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/spell/SummonerExhaust.png",
+    4:  "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/spell/SummonerFlash.png",
+    6:  "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/spell/SummonerHaste.png",
+    7:  "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/spell/SummonerHeal.png",
+    11: "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/spell/SummonerSmite.png",
+    12: "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/spell/SummonerTeleport.png",
+    14: "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/spell/SummonerDot.png",
+    21: "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/spell/SummonerBarrier.png"
+}
+
+const keystoneRunes = {
+  // Precision
+  8005: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/PressTheAttack/PressTheAttack.png",
+  8008: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/LethalTempo/LethalTempoTemp.png",
+  8021: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/FleetFootwork/FleetFootwork.png",
+  8010: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png",
+
+  // Domination
+  8112: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/Electrocute/Electrocute.png",
+  8124: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/Predator/Predator.png",
+  8128: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/DarkHarvest/DarkHarvest.png",
+  9923: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/HailOfBlades/HailOfBlades.png",
+
+  // Sorcery
+  8214: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/SummonAery/SummonAery.png",
+  8229: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/ArcaneComet/ArcaneComet.png",
+  8230: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/PhaseRush/PhaseRush.png",
+
+  // Inspiration
+  8351: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Inspiration/GlacialAugment/GlacialAugment.png",
+  8360: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Inspiration/UnsealedSpellbook/UnsealedSpellbook.png",
+  8369: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Inspiration/FirstStrike/FirstStrike.png",
+
+  // Resolve
+  8437: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/GraspOfTheUndying/GraspOfTheUndying.png",
+  8439: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/VeteranAftershock/VeteranAftershock.png",
+  8465: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/Guardian/Guardian.png"
+};
+
+const runeStyleIcons = {
+  8000: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7201_Precision.png",
+  8100: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7200_Domination.png",
+  8200: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7202_Sorcery.png",
+  8300: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7203_Whimsy.png",
+  8400: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7204_Resolve.png"
+};
 
 
 async function getResponse(url) {
@@ -163,6 +227,104 @@ async function getInformationFromMatch(puuid, count = 20) {
 }
 
 
+function DefineWinOrLose(data, index) {
+    let win = data[index].mainPlayerData.win;
+    return win;
+}
+
+
+function CalculateGameDuration(data, index) {
+    const duration = data[index].gameDuration;
+    const minutes = Math.floor(duration / 60);
+    const seconds = duration % 60;
+
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+
+
+function LoadAvatar(data, index) { return data[index].mainPlayerData.championName; }
+
+
+function LoadSummonerSpells(data, index) {
+    return { 
+        0: summonerSpells[data[index].mainPlayerData.spells.s1],
+        1: summonerSpells[data[index].mainPlayerData.spells.s2]
+    };
+}
+
+
+function LoadRunes(data, index) {
+    return { 
+        0: keystoneRunes[data[index].mainPlayerData.runes.main],
+        1: runeStyleIcons[data[index].mainPlayerData.runes.subStyle]
+    };
+}
+
+
+function LoadKDAandScore(data, index) {1
+    const k = data[index].mainPlayerData.kda.k;
+    const d = data[index].mainPlayerData.kda.d;
+    const a = data[index].mainPlayerData.kda.a;
+
+    const kdaValue = (k + a) / (d === 0 ? 1 : d);
+    const result = Math.round(kdaValue * 10) / 10;
+
+    return { 
+        0: `${data[index].mainPlayerData.kda.k} / ${data[index].mainPlayerData.kda.d} / ${data[index].mainPlayerData.kda.a}`,
+        1: `KDA ${result}`
+    };
+}
+
+
+function LoadCSData(data, index) {
+    const durations = data[index].gameDuration;
+    const totalCS = data[index].mainPlayerData.cs.total;
+    const durationInMinutes = durations / 60;
+    const cs_per_min_numn = totalCS / durationInMinutes;
+    const result = Math.round(cs_per_min_numn * 10) / 10;
+
+    return { 
+        0: `CS: ${data[index].mainPlayerData.cs.total}`,
+        1: `${result} / min`
+    };
+}
+
+function CreateNewMatchBlock(win, game_duration, champ, summoners, runes, kda, cs) {
+    let result = win ? 'win' : 'lose';
+
+    match_list.innerHTML += `
+    <div class="match-item ${result}">
+        <div class="col meta">
+            <div class="mode" id="game_mode">Game duration</div>
+            <div class="duration" id="game_duration">${game_duration}</div>
+        </div>
+        <!-- CHAMP, SUMMONERS, RUNES -->
+        <div class="col champ-col">
+            <img src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/${champ}.png" class="champ" id="champ_img">
+            <div class="summoner_spells">
+                <img src="${summoners[0]}" id="first_sum">
+                <img src="${summoners[1]}" id="second_sum">
+            </div>
+            <div class="runes">
+                <img src="${runes[0]}" id="primary_rune">
+                <img src="${runes[1]}" id="secondary_rune">
+            </div>
+        </div>
+        <!-- KDA -->
+        <div class="col kda-col">
+            <div class="score-line" id="score">${kda[0]}</div>
+            <div class="kda" id="kda">${kda[1]}</div>
+        </div>
+        <!-- CS -->
+        <div class="col cs-col">
+            <div id="total_cs">${cs[0]}</div>
+            <div class="small" id="cs_per_min">${cs[1]}</div>
+        </div>
+    </div>
+`;
+}
+
+
 async function main() {
     let gameName = name_search.value;
     let tagLine = tag_search.value;
@@ -174,18 +336,40 @@ async function main() {
     avatar.src = `https://ddragon.leagueoflegends.com/cdn/16.7.1/img/profileicon/${iconId}.png`;
     summoner_level.textContent = levelSummoner;
     nickname.textContent = gameName;
-    tagline.textContent = tagLine;
+    tagline.textContent = `#${tagLine}`;
     regionHtml.textContent = region;
-    rank_img.src = `https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-emblem/emblem-${rankSolo.toLowerCase()}.png`;
-    tier.textContent = rankSolo;
-    lp.textContent = pointsSolo;
 
-    getInformationFromMatch(_puuid, 20);
+    if(rankSolo == "Unranked") {
+        rank_img.src = `https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-emblem/emblem-iron.png`;
+        tier.style.color = rankColors["UNRANKED"];
+        tier.textContent = "Unranked";
+        lp.style.color = rankColors["UNRANKED"];
+        lp.textContent = `- LP`;
+    } else {
+        rank_img.src = `https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-emblem/emblem-${rankSolo.toLowerCase()}.png`;
+        tier.style.color = rankColors[rankSolo];
+        tier.textContent = rankSolo;
+        lp.style.color = rankColors[rankSolo];
+        lp.textContent = `${pointsSolo} LP`;
+    }
+    
+    const matchesData = await getInformationFromMatch(_puuid, 20);
+
+    for(match in matchesData) {
+        let win           = DefineWinOrLose(matchesData, match);
+        let game_duration = CalculateGameDuration(matchesData, match);
+        let champ         = LoadAvatar(matchesData, match);
+        let summoners     = LoadSummonerSpells(matchesData, match);
+        let runes         = LoadRunes(matchesData, match);
+        let kda           = LoadKDAandScore(matchesData, match);
+        let cs            = LoadCSData(matchesData, match);
+
+        CreateNewMatchBlock(win, game_duration, champ, summoners, runes, kda, cs);
+    }
 }
 
 
-
 search_btn.addEventListener("click", () => {
+    match_list.innerHTML = "";
     main();
-
 });
