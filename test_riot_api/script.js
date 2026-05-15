@@ -12,9 +12,9 @@ const name_search    = document.getElementById("name_search");
 const tag_search     = document.getElementById("tag_search");
 const search_btn     = document.getElementById("search_btn");
 
-const match_list = document.getElementById("match-list");
+const match_list     = document.getElementById("match-list");
 
-const routingValue = 'europe';
+const routingValue   = 'europe';
 
 const rankColors = {
     "UNRANKED": "#474747",
@@ -58,7 +58,8 @@ const keystoneRunes = {
   // Sorcery
   8214: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/SummonAery/SummonAery.png",
   8229: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/ArcaneComet/ArcaneComet.png",
-  8230: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/PhaseRush/PhaseRush.png",
+  8230: "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/sorcery/phaserush/stormraiderssurgeruneicon2.png",
+  8992: "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/sorcery/deathfiretouch/deathfire_touch_keystone.png",
 
   // Inspiration
   8351: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Inspiration/GlacialAugment/GlacialAugment.png",
@@ -84,7 +85,7 @@ async function getResponse(url) {
     const response = await fetch(url, {
         method: 'GET',
         headers: {
-            'X-Riot-Token': '...'
+            'X-Riot-Token': 'RGAPI-94731416-d3cb-4715-9146-25c4b1ca756c'
         }
     });
     
@@ -197,7 +198,7 @@ function parseMatchStats(MatchesData, searchPuuid) {
         return {
             gameId: info.gameId,
             gameDuration: info.gameDuration,
-            gameMode: info.gameMode,
+            gameMode: info.queueId,
             searchPuuid: searchPuuid,
             mainPlayerData: mainPlayer,
             players: allPlayers
@@ -289,13 +290,13 @@ function LoadCSData(data, index) {
     };
 }
 
-function CreateNewMatchBlock(win, game_duration, champ, summoners, runes, kda, cs) {
+function CreateNewMatchBlock(win, game_mode, game_duration, champ, summoners, runes, kda, cs) {
     let result = win ? 'win' : 'lose';
 
     match_list.innerHTML += `
     <div class="match-item ${result}">
         <div class="col meta">
-            <div class="mode" id="game_mode">Game duration</div>
+            <div class="mode" id="game_mode">${game_mode}</div>
             <div class="duration" id="game_duration">${game_duration}</div>
         </div>
         <!-- CHAMP, SUMMONERS, RUNES -->
@@ -324,6 +325,24 @@ function CreateNewMatchBlock(win, game_duration, champ, summoners, runes, kda, c
 `;
 }
 
+function getGameMode(data, index) {
+    if(data[index].gameMode == 400)
+        return "Normal 5v5";
+    else if (data[index].gameMode == 420)
+        return "Ranked Solo/Duo";
+    else if (data[index].gameMode == 440)
+        return "Ranked Flex 5v5";
+    else if (data[index].gameMode == 480)
+        return "Swiftplay";
+    else if (data[index].gameMode == 2400)
+        return "ARAM: Mayhem";
+    else if (data[index].gameMode == 450)
+        return "ARAM";
+    else if(data[index].gameMode == 1700)
+        return "Arena";
+    else if (data[index].gameMode == 890 || data[index].gameMode == 870 || data[index].gameMode == 880)
+        return "Bots";
+}
 
 async function main() {
     let gameName = name_search.value;
@@ -363,8 +382,9 @@ async function main() {
         let runes         = LoadRunes(matchesData, match);
         let kda           = LoadKDAandScore(matchesData, match);
         let cs            = LoadCSData(matchesData, match);
+        let game_mode      = getGameMode(matchesData, match);
 
-        CreateNewMatchBlock(win, game_duration, champ, summoners, runes, kda, cs);
+        CreateNewMatchBlock(win, game_mode, game_duration, champ, summoners, runes, kda, cs);
     }
 }
 
