@@ -85,7 +85,7 @@ async function getResponse(url) {
     const response = await fetch(url, {
         method: 'GET',
         headers: {
-            'X-Riot-Token': 'RGAPI-94731416-d3cb-4715-9146-25c4b1ca756c'
+            'X-Riot-Token': '...'
         }
     });
     
