@@ -16,6 +16,64 @@ const match_list     = document.getElementById("match-list");
 
 const routingValue   = 'europe';
 
+// Data Dragon periodically changes version. Keep one fallback for offline use,
+// but prefer Riot's current version instead of hard-coding it in every URL.
+let dataDragonVersion = '16.8.1';
+
+const dataDragonReady = fetch('https://ddragon.leagueoflegends.com/api/versions.json')
+    .then(response => response.ok ? response.json() : null)
+    .then(versions => {
+        if (Array.isArray(versions) && versions[0]) dataDragonVersion = versions[0];
+    })
+    .catch(() => null);
+
+function dataDragonAsset(folder, file) {
+    return `https://ddragon.leagueoflegends.com/cdn/${dataDragonVersion}/img/${folder}/${file}`;
+}
+
+function iconFallback(label, color = '#56b9e9') {
+    const safeLabel = String(label || '?').slice(0, 2).toUpperCase();
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#17263a"/><stop offset="1" stop-color="#090f19"/></linearGradient></defs><rect width="128" height="128" rx="24" fill="url(#g)"/><path d="M64 18 104 64 64 110 24 64Z" fill="none" stroke="${color}" stroke-width="5" opacity=".75"/><text x="64" y="73" text-anchor="middle" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="28" font-weight="700">${safeLabel}</text></svg>`;
+    return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+}
+
+function setImageFallback(image, label, color) {
+    image.onerror = null;
+    image.src = iconFallback(label, color);
+}
+
+function loadRankEmblem(rank) {
+    const normalizedRank = String(rank || 'iron').toLowerCase();
+    const emblemRank = normalizedRank === 'unranked' ? 'iron' : normalizedRank;
+    const sources = [
+        `https://opgg-static.akamaized.net/images/medals_new/${emblemRank}.png`,
+        `https://raw.communitydragon.org/16.15/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-emblem/emblem-${emblemRank}.png`,
+        `https://raw.communitydragon.org/pbe/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-emblem/emblem-${emblemRank}.png`
+    ];
+    let sourceIndex = 0;
+
+    rank_img.onerror = () => {
+        sourceIndex += 1;
+
+        if (sourceIndex < sources.length) {
+            rank_img.src = sources[sourceIndex];
+            return;
+        }
+
+        const color = rankColors[String(rank || 'UNRANKED').toUpperCase()] || rankColors.UNRANKED;
+        setImageFallback(rank_img, '◇', color);
+    };
+
+    rank_img.src = sources[sourceIndex];
+}
+
+avatar.onerror = () => setImageFallback(avatar, 'RI', '#d5b36c');
+rank_img.onerror = () => setImageFallback(rank_img, 'I', '#514a4a');
+
+// An image may fail before this deferred script has finished loading.
+if (avatar.complete && !avatar.naturalWidth) setImageFallback(avatar, 'RI', '#d5b36c');
+if (rank_img.complete && !rank_img.naturalWidth) setImageFallback(rank_img, 'I', '#514a4a');
+
 const rankColors = {
     "UNRANKED": "#474747",
     "IRON": "#514A4A",
@@ -31,15 +89,15 @@ const rankColors = {
 }
 
 const summonerSpells = {
-    1:  "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/spell/SummonerBoost.png",
-    3:  "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/spell/SummonerExhaust.png",
-    4:  "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/spell/SummonerFlash.png",
-    6:  "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/spell/SummonerHaste.png",
-    7:  "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/spell/SummonerHeal.png",
-    11: "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/spell/SummonerSmite.png",
-    12: "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/spell/SummonerTeleport.png",
-    14: "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/spell/SummonerDot.png",
-    21: "https://ddragon.leagueoflegends.com/cdn/16.8.1/img/spell/SummonerBarrier.png"
+    1:  "SummonerBoost.png",
+    3:  "SummonerExhaust.png",
+    4:  "SummonerFlash.png",
+    6:  "SummonerHaste.png",
+    7:  "SummonerHeal.png",
+    11: "SummonerSmite.png",
+    12: "SummonerTeleport.png",
+    14: "SummonerDot.png",
+    21: "SummonerBarrier.png"
 }
 
 const keystoneRunes = {
@@ -58,8 +116,9 @@ const keystoneRunes = {
   // Sorcery
   8214: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/SummonAery/SummonAery.png",
   8229: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/ArcaneComet/ArcaneComet.png",
-  8230: "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/sorcery/phaserush/stormraiderssurgeruneicon2.png",
-  8992: "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/sorcery/deathfiretouch/deathfire_touch_keystone.png",
+  8230: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/PhaseRush/PhaseRush.png",
+  // Legacy Deathfire Touch is absent from current Data Dragon assets.
+  8992: iconFallback('R', '#9c6ade'),
 
   // Inspiration
   8351: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Inspiration/GlacialAugment/GlacialAugment.png",
@@ -247,9 +306,11 @@ function LoadAvatar(data, index) { return data[index].mainPlayerData.championNam
 
 
 function LoadSummonerSpells(data, index) {
+    const firstSpell = summonerSpells[data[index].mainPlayerData.spells.s1];
+    const secondSpell = summonerSpells[data[index].mainPlayerData.spells.s2];
     return { 
-        0: summonerSpells[data[index].mainPlayerData.spells.s1],
-        1: summonerSpells[data[index].mainPlayerData.spells.s2]
+        0: firstSpell ? dataDragonAsset('spell', firstSpell) : iconFallback('S'),
+        1: secondSpell ? dataDragonAsset('spell', secondSpell) : iconFallback('S')
     };
 }
 
@@ -301,10 +362,10 @@ function CreateNewMatchBlock(win, game_mode, game_duration, champ, summoners, ru
         </div>
         <!-- CHAMP, SUMMONERS, RUNES -->
         <div class="col champ-col">
-            <img src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/${champ}.png" class="champ" id="champ_img">
+            <img src="${dataDragonAsset('champion', `${champ}.png`)}" class="champ" onerror="setImageFallback(this, '${champ.slice(0, 2)}', '#d5b36c')" alt="${champ}">
             <div class="summoner_spells">
-                <img src="${summoners[0]}" id="first_sum">
-                <img src="${summoners[1]}" id="second_sum">
+                <img src="${summoners[0]}" onerror="setImageFallback(this, 'S')" alt="Первое заклинание призывателя">
+                <img src="${summoners[1]}" onerror="setImageFallback(this, 'S')" alt="Второе заклинание призывателя">
             </div>
             <div class="runes">
                 <img src="${runes[0]}" id="primary_rune">
@@ -345,6 +406,7 @@ function getGameMode(data, index) {
 }
 
 async function main() {
+    await dataDragonReady;
     let gameName = name_search.value;
     let tagLine = tag_search.value;
     let _puuid = await getRiotAccount(gameName, tagLine);
@@ -352,20 +414,21 @@ async function main() {
     let [rankSolo, pointsSolo, rankFlex, pointsFlex] = await getRankAccount(_puuid, region);
     let [iconId, levelSummoner] = await getIconAndLevelAccount(_puuid, region);
 
-    avatar.src = `https://ddragon.leagueoflegends.com/cdn/16.7.1/img/profileicon/${iconId}.png`;
+    avatar.onerror = () => setImageFallback(avatar, gameName, '#d5b36c');
+    avatar.src = dataDragonAsset('profileicon', `${iconId}.png`);
     summoner_level.textContent = levelSummoner;
     nickname.textContent = gameName;
     tagline.textContent = `#${tagLine}`;
     regionHtml.textContent = region;
 
     if(rankSolo == "Unranked") {
-        rank_img.src = `https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-emblem/emblem-iron.png`;
+        loadRankEmblem('UNRANKED');
         tier.style.color = rankColors["UNRANKED"];
         tier.textContent = "Unranked";
         lp.style.color = rankColors["UNRANKED"];
         lp.textContent = `- LP`;
     } else {
-        rank_img.src = `https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-emblem/emblem-${rankSolo.toLowerCase()}.png`;
+        loadRankEmblem(rankSolo);
         tier.style.color = rankColors[rankSolo];
         tier.textContent = rankSolo;
         lp.style.color = rankColors[rankSolo];

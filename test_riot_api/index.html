@@ -2,56 +2,72 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080c13">
     <title>League Profile</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="top-section">
-            <!-- PROFILE -->
+    <main class="container">
+        <div class="brand">
+            <span class="brand-mark" aria-hidden="true">◇</span>
+            Rift Insight
+        </div>
+
+        <section class="top-section" aria-label="Профиль игрока">
             <div class="profile-block">
                 <div class="avatar-container">
-                    <img src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/0.png" class="avatar" id="avatar">
+                    <img src="https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/29.jpg" class="avatar" id="avatar" alt="Аватар игрока">
                     <span class="level-tag" id="summoner_level">0</span>
                 </div>
 
                 <div class="name-block">
+                    <div class="profile-label">Summoner profile</div>
                     <h1 class="nickname" id="nickname">John Doe</h1>
                     <span class="tagline" id="tagline">#EUW</span>
                     <span class="region-badge" id="region">EUW</span>
                 </div>
             </div>
-            <!-- RANK DATA -->
+
             <div class="rank-block">
                 <div class="rank-img-wrapper">
-                <img src="https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-emblem/emblem-iron.png" class="rank-img" id="rank_img">
+                    <img src="https://opgg-static.akamaized.net/images/medals_new/iron.png" class="rank-img" id="rank_img" alt="Ранговая эмблема">
+                </div>
+                <div class="rank-info">
+                    <div class="rank-label">Solo / Duo</div>
+                    <div class="tier" id="tier">IRON</div>
+                    <div class="lp" id="lp">0 LP</div>
+                </div>
             </div>
-            <div class="rank-info">
-                <div class="tier" id="tier">IRON</div>
-                <div class="lp" id="lp">0 LP</div>
+        </section>
+
+        <section class="search-panel" aria-label="Поиск игрока">
+            <div class="search-bar">
+                <label class="field">
+                    <span class="field-label">Summoner name</span>
+                    <input type="text" class="search-input" placeholder="Faker" id="name_search" autocomplete="off">
+                </label>
+                <label class="field">
+                    <span class="field-label">Tagline</span>
+                    <input type="text" class="search-input" placeholder="KR1" id="tag_search" autocomplete="off">
+                </label>
+                <button class="search-btn" id="search_btn" type="button">Find player</button>
             </div>
-        </div>
-    </div>
-    <!-- SUMMONER SEARCH -->
-    <div class="search-bar">
-        <input 
-            type="text" 
-            class="search-input" 
-            placeholder="Enter summoner name..."
-            id="name_search"
-        >
-        <input 
-            type="text" 
-            class="search-input" 
-            placeholder="Enter summoner tag..."
-            id="tag_search"
-        >
-        <button class="search-btn" id="search_btn">Search</button>
-    </div>
-    <!-- MATCH LIST -->
-    <div class="match-list" id="match-list">
-    <!-- THE LIST -->
-    </div>
+        </section>
+
+        <section aria-label="История матчей">
+            <div class="section-heading">
+                <h2>Recent matches</h2>
+                <span>Последние игры игрока</span>
+            </div>
+            <div class="match-list" id="match-list">
+                <div class="empty-state">
+                    <strong>История матчей появится здесь</strong>
+                    <span>Введите Riot ID игрока, чтобы загрузить статистику</span>
+                </div>
+            </div>
+        </section>
+    </main>
     <script src="script.js"></script>
 </body>
 </html>
